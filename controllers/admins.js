@@ -1,8 +1,10 @@
 const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 const Admin = require('../models/admins');
 const { ERR_MSG } = require('../utils/constants');
 const { ConflictErr, BadRequestErr } = require('../errors/index');
 const BadRequestError = require('../errors/bad-request-err');
+const {NODE_ENV, JWT_SECRET} = process.env;
 
 const createAdmin = (req, res, next) => { // создаём админа
     const { name, email, password } = req.body;
@@ -17,7 +19,6 @@ const createAdmin = (req, res, next) => { // создаём админа
                 password: hash
             })
             .then((admin) => {
-                console.log(admin)
                 Admin.findById(admin._id)
                     .then((data) => {
                         res.send(data)

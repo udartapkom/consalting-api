@@ -3,9 +3,9 @@ const { UnautorizedErr } = require('../errors/index');
 const { ERR_MSG } = require('../utils/constants');
 const { NODE_ENV, JWT_SECRET } = process.env;
 
-const auth = (req, res, nex) => {
+const auth = (req, res, next) => {
     const { autorization } = req.headers;
-    if (!autorization || !autorization.startsWidth('Bearer ')) {
+    if (!autorization || !autorization.startsWith('Bearer ')) {
         throw new UnautorizedErr(ERR_MSG.UNAUTORIZED);
     }
     const token = autorization.replace('Bearer ', '');

@@ -5,10 +5,10 @@ const telegramBot = (req, res, next) => {
     const { name, telephone, message } = req.body; //Ниже тоже ХАРДКОД - ID ЧАТА - нужно как-то исправить
             bot.telegram.sendMessage(225999785, `У вас новая консультация! \n Имя:  ${name}  \n Телефон:  ${telephone} \n Тема:  ${message} `)
        .then((data) => {
-        res.status(200).send('Сообщение успешно доставлено. Ожидайте ответа.')
+        res.status(200).send(data)
        })
         .catch((err) => {
-            res.send('Что-то пошло не так! Попробуйте ещё раз, но немного позже.')
+            res.send(err)
         })
     process.once('SIGINT', () => bot.stop('SIGINT'))
     process.once('SIGTERM', () => bot.stop('SIGTERM'))
