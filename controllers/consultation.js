@@ -46,7 +46,7 @@ const toArchiveConsultation = (req, res, next) => { // отправить кон
     if (!id) {
         throw new BadRequestErr(ERR_MSG.BAD_REQUEST);
     }
-    Consultations.findOneAndUpdate(id, {isarchive: true })
+    Consultations.findByIdAndUpdate(id, {isarchive: true })
     .then((cons) => {
         Consultations.findById(cons._id)
         .then((data) => {

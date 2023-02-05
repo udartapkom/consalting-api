@@ -17,7 +17,8 @@ const ConsultationSchema = new mongoose.Schema({
         maxlength: 300,
     },
     date: {
-        type: Date
+        type: Date,
+	default: Date.now
     },
     isread: {
         type: Boolean,

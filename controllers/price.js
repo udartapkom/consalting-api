@@ -2,13 +2,14 @@ const Price = require('../models/price');
 const { ConflictErr, BadRequestErr } = require('../errors/index');
 
 function createPrice(req, res, next) { //создать запись
-    const { title, subtitle, service } = req.body
+    const { title, titleShow,  subtitle, service } = req.body
     if (!title || !subtitle) {
         res.status(400).send("Невозможно создать прайс")
         throw new BadRequestErr(ERR_MSG.BAD_REQUEST);
     }
     Price.create({
         title,
+	titleShow,
         subtitle,
         service
     })
@@ -56,7 +57,7 @@ const updatePrice = (req, res, next) => { //обновить прайс
 }
 
 const getAllPrices = (req, res, next) => { //получить весь прайс
-    Price.find({})
+    Price.find({}).sort({title: -1, titleShow: -1, "subtitle.text": -1, "subtitle.textShow": -1})
         .then((data) => {
             res.send(data)
         })

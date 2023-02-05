@@ -2,11 +2,19 @@ const mongoose = require('mongoose');
 
 const PriceSchema = new mongoose.Schema({
     title: {
-        type: String
+        type: String,
     },
+    titleShow: {
+	type: Boolean,
+	default: true
+	},
     subtitle: [
         { 
             text: String,
+	    textShow: {
+		type: Boolean,
+		default: true
+	},
             service: [
                 {
                     name: String,
