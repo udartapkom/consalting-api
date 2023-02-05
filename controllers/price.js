@@ -1,5 +1,5 @@
 const Price = require('../models/price');
-const { ConflictErr, BadRequestErr } = require('../errors/index');
+const { BadRequestErr } = require('../errors/index');
 
 function createPrice(req, res, next) { //создать запись
     const { title, titleShow,  subtitle, service } = req.body
@@ -9,7 +9,7 @@ function createPrice(req, res, next) { //создать запись
     }
     Price.create({
         title,
-	titleShow,
+	    titleShow,
         subtitle,
         service
     })
@@ -41,8 +41,9 @@ function deletePrice(req, res, next) { //удалить запись прайс�
 
 const updatePrice = (req, res, next) => { //обновить прайс
     const {id, title, subtitle } = req.body; 
-    if(!id || !title || !subtitle) {
+    if(!id || !title) {
         res.status(400).send("Невозможно обновить прайс")
+        throw new BadRequestErr(ERR_MSG.BAD_REQUEST);
     }
     Price.findByIdAndUpdate(id, {title, subtitle})
     .then((price) => {
@@ -53,6 +54,20 @@ const updatePrice = (req, res, next) => { //обновить прайс
     })
     .catch((error) => {
         res.status(500).send('Ошибка обновления прайса');
+    })
+}
+const getPriceById = (req, res, next) => { //получить один элемент прайса
+    const { id } = req.body;
+    if (id) {
+        res.status(400).send("Невозможно получить элемент прайса")
+        throw new BadRequestErr(ERR_MSG.BAD_REQUEST);
+    }
+    Price.findById(id)
+            .then((data) => {
+                res.send(data)
+            })
+    .catch((error) => {
+        res.status(500).send('Ошибка получения прайса');
     })
 }
 
@@ -69,5 +84,6 @@ module.exports = {
     createPrice,
     deletePrice,
     updatePrice,
+    getPriceById,
     getAllPrices
 }
