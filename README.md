@@ -4,8 +4,8 @@
 ### Технологии и библиотеки
 - Node.js (Express)
 - MongoDB (mongoose)    
-API доступно по: [`https://api.ka-tandem.ru/`]  
-или [`https://www.api.ka-tandem.ru`]  
+API доступно по: [`https://api.ka-tandem.ru/`](https://api.ka-tandem.ru/)  
+или [`https://www.api.ka-tandem.ru`](https://www.api.ka-tandem.ru)  
 
 #### Скрипты:  
   
